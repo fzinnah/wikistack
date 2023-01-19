@@ -6,14 +6,21 @@ const bodyParser = require("body-parser");
 const PORT = 1234;
 const layout = require("./views/layout");
 const { db, Page, User } = require("./models");
+const wikiRouter = require('./routes/wiki');
+// const userRouter = require('./routes/users');
+
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 
+app.use('/wiki', wikiRouter);
+
 app.get("/", (req, res) => {
-  res.send(layout(""));
+    res.redirect('/wiki');
 });
 
 const init = async () => {
